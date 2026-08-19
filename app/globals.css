@@ -41,15 +41,20 @@ html {
 }
 
 @layer utilities {
-  .nav {
+  .fraunces-swash-amp {
+    font-feature-settings: "swsh" 1;
+  }
+    .nav {
     @apply text-white hover:text-white focus:text-white text-xs md:text-sm font-medium font-dm-sans;
+    text-shadow: 0 0 22.46px rgba(0, 0, 0, 0.25);
   }
   .hero-text {
     @apply text-white text-2xl md:text-4xl lg:text-5xl font-normal font-fraunces leading-[100%] text-center;
-  text-box-edge: cap alphabetic;
+    text-shadow: 0 0 22.46px rgba(0, 0, 0, 0.25);
   }
-  .sub-text {
+    .sub-text {
     @apply text-white text-sm md:text-base lg:text-lg font-light font-dm-sans leading-[157%];
+    text-shadow: 0 0 22.46px rgba(0, 0, 0, 0.25);
   }
 
   .sub-textblack {

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/Button";
 export default function Hero() {
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      {/* Mobile — image fills a content-sized box */}
       <div className="relative min-h-[560px] w-full md:hidden">
         <Image
           src="/assets/heroImg.svg"
@@ -19,7 +18,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Tablet & up — natural image height, text overlaid */}
       <div className="relative hidden md:block">
         <Image
           src="/assets/heroImg.svg"

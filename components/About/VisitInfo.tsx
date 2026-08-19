@@ -47,7 +47,7 @@ function Barcode() {
   return (
     <div
       aria-hidden="true"
-      className="flex h-24 w-[52px] flex-col justify-center gap-[2px] md:h-28 md:w-[60px]"
+      className="flex h-14 w-[26px] flex-col justify-center gap-[1px] sm:h-16 sm:w-[34px] md:h-28 md:w-[60px] md:gap-[2px]"
     >
       {BARS.map((h, i) => (
         <span
@@ -62,7 +62,7 @@ function Barcode() {
 
 export default function VisitInfo() {
   return (
-    <section  id="visit-info" className="bg-white">
+    <section id="visit-info" className="scroll-mt-20 bg-white">
       <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-8 md:py-24 lg:px-10 lg:py-28">
         <div className="text-center">
           <h2 className="header text-balance">Everything you need to visit</h2>
@@ -77,68 +77,61 @@ export default function VisitInfo() {
           <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2">
             {DETAILS.map((d) => (
               <div key={d.label} className="border-b border-black/15 pb-8">
-                <p className="font-fraunces font-normal text-sm md:text-base text-black uppercase">
+                <p className="font-fraunces text-sm font-normal uppercase text-black md:text-base">
                   {d.label}
                 </p>
-                <p className="mt-3 font-dm-sans font-medium text-lg text-black md:text-xl lg:text-2xl">
+                <p className="mt-3 font-dm-sans text-lg font-medium text-black md:text-xl lg:text-2xl">
                   {d.value}
                 </p>
               </div>
             ))}
           </div>
 
-<div className="space-y-6">
+         {/* Tickets */}
+<div className="space-y-4 md:space-y-6">
   {TICKETS.map((t) => (
-    <div key={t.name} className="flex flex-col sm:flex-row sm:items-stretch">
-      {/* Main panel */}
-      <div
-        className="flex min-w-0 flex-1 items-center gap-4 px-5 py-6 sm:gap-6 md:px-8 md:py-9"
-        style={{
-          backgroundImage: CARD_BG,
-          ...(t.border && BORDER),
-        }}
-      >
-        <div className="min-w-0 flex-1">
-          <p className="font-fraunces text-lg font-semibold text-black md:text-2xl">
-            {t.name}
-          </p>
-          <p className="mt-1.5 font-dm-sans text-sm text-[#2A2A2A] md:text-base">
-            {t.note}
-          </p>
-        </div>
-
-        <p
-          className="shrink-0 font-fraunces text-lg md:text-2xl"
-          style={{ color: t.priceColor }}
-        >
-          {t.price}
+    <div
+      key={t.name}
+      className="relative flex items-center py-6 pl-4 pr-6 sm:pl-6 md:py-9 md:pl-8 md:pr-8"
+      style={{
+        backgroundImage: CARD_BG,
+        ...(t.border && BORDER),
+        maskImage:
+          "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
+        maskSize: "100% 22px",
+        maskRepeat: "repeat-y",
+        WebkitMaskImage:
+          "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
+        WebkitMaskSize: "100% 22px",
+        WebkitMaskRepeat: "repeat-y",
+      }}
+    >
+      {/* Name + note */}
+      <div className="min-w-0 flex-1">
+        <p className="font-fraunces text-base font-semibold text-black sm:text-lg md:text-2xl">
+          {t.name}
+        </p>
+        <p className="mt-1.5 font-dm-sans text-xs text-[#2A2A2A] sm:text-sm md:text-base">
+          {t.note}
         </p>
       </div>
 
-
-      <div className="relative h-4 w-full shrink-0 sm:h-auto sm:w-4 md:w-5">
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.3)_0_3px,transparent_3px_7px)] sm:left-0 sm:top-1/2 sm:h-px sm:w-full sm:-translate-x-0 sm:-translate-y-1/2 sm:bg-[repeating-linear-gradient(to_right,rgba(0,0,0,0.3)_0_3px,transparent_3px_7px)]"
-        />
-      </div>
-
-      {/* Barcode stub */}
-      <div
-        className="relative flex shrink-0 items-center justify-center px-5 py-5 sm:justify-start sm:py-0 sm:pl-6 sm:pr-16 md:pr-20"
-        style={{
-          backgroundImage: CARD_BG,
-          ...(t.border && BORDER),
-          maskImage:
-            "radial-gradient(circle 11px at right, transparent 11px, black 11.5px)",
-          maskSize: "100% 30px",
-          maskRepeat: "repeat-y",
-          WebkitMaskImage:
-            "radial-gradient(circle 11px at right, transparent 11px, black 11.5px)",
-          WebkitMaskSize: "100% 30px",
-          WebkitMaskRepeat: "repeat-y",
-        }}
+      {/* Price */}
+      <p
+        className="shrink-0 px-3 font-fraunces text-base sm:text-lg md:px-6 md:text-2xl"
+        style={{ color: t.priceColor }}
       >
+        {t.price}
+      </p>
+
+      {/* Dashed perforation — inside the card */}
+      <div
+        aria-hidden="true"
+        className="h-14 w-px shrink-0 bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.35)_0_4px,transparent_4px_9px)] sm:h-16 md:h-24"
+      />
+
+      {/* Barcode */}
+      <div className="shrink-0 pl-3 md:pl-5">
         <Barcode />
       </div>
     </div>

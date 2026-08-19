@@ -67,7 +67,6 @@ export default function ChapterOne() {
   return (
     <section id="chapter-one" className="overflow-hidden bg-background">
       <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24 lg:px-14 lg:py-28">
-        {/* Heading */}
         <div className="text-center">
           <h2 className="header text-balance">Chapter One: Beyond the Skin</h2>
           <p className="small-sub mx-auto mt-4 max-w-[52ch] text-pretty">
@@ -76,19 +75,16 @@ export default function ChapterOne() {
           </p>
         </div>
 
-        {/* Stack */}
         <div className="mx-auto mt-12 max-w-[900px] md:mt-16">
           {CHAPTERS.map((item) => (
             <div
               key={item.index}
               className={`relative grid grid-cols-1 items-center md:grid-cols-[4.5rem_1fr_5.5rem] ${item.pull} ${item.z}`}
             >
-              {/* Index — desktop only */}
               <span className="hidden self-center font-fraunces text-base text-black md:block">
                 ({item.index})
               </span>
 
-              {/* Image */}
               <div className="flex justify-center">
                 <div className={`${item.widthClass} ${item.shift}`}>
                   <Image
@@ -101,7 +97,6 @@ export default function ChapterOne() {
                 </div>
               </div>
 
-              {/* Label — desktop only */}
               <span className="hidden self-center text-right font-fraunces text-base tracking-[0.12em] text-black uppercase md:block">
                 {item.label}
               </span>

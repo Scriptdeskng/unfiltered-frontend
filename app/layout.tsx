@@ -27,8 +27,6 @@ export const metadata: Metadata = {
   description: "",
 };
 
-// Plain shell only — Topbar/Footer/MobileNav are rendered by LayoutWrap
-// inside each page.tsx. Rendering them here too caused the duplicate topbar.
 export default function RootLayout({
   children,
 }: Readonly<{

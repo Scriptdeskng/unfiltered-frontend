@@ -12,7 +12,7 @@ const PARTNERSHIP_TYPES = [
 ];
 
 const fieldBase =
-  "w-full border border-[1.5px] border-[#616161]/20 rounded-md px-4 py-3 " +
+  "w-full border border-[1.5px] border-[#616161]/20 rounded-md px-4 py-2 " +
   "font-dm-sans text-base text-black outline-none transition-colors " +
   "placeholder:text-black/35 focus:border-black/30 focus:border-[1.5px] md:text-lg";
 
@@ -43,7 +43,6 @@ export default function PartnerForm() {
     <section className="bg-background mt-10">
       <div className="mx-auto max-w-[1440px] px-6 pb-20 md:px-8 md:pb-24 lg:px-10 lg:pb-28">
         <div className="grid gap-x-12 gap-y-6 md:grid-cols-2 md:gap-x-16 lg:gap-x-20">
-          {/* First name */}
           <div>
             <label htmlFor="firstName" className={labelBase}>
               First Name
@@ -57,7 +56,6 @@ export default function PartnerForm() {
             />
           </div>
 
-          {/* Last name */}
           <div>
             <label htmlFor="lastName" className={labelBase}>
               Last Name
@@ -71,7 +69,6 @@ export default function PartnerForm() {
             />
           </div>
 
-          {/* Organisation */}
           <div>
             <label htmlFor="organisation" className={labelBase}>
               Organisation
@@ -85,7 +82,6 @@ export default function PartnerForm() {
             />
           </div>
 
-          {/* Work email */}
           <div>
             <label htmlFor="workEmail" className={labelBase}>
               Work Email
@@ -99,7 +95,6 @@ export default function PartnerForm() {
             />
           </div>
 
-          {/* Phone */}
           <div>
             <label htmlFor="phone" className={labelBase}>
               Phone Number
@@ -113,7 +108,6 @@ export default function PartnerForm() {
             />
           </div>
 
-          {/* Partnership type */}
           <div>
             <label htmlFor="partnershipType" className={labelBase}>
               Partnership Type
@@ -143,7 +137,6 @@ export default function PartnerForm() {
             </div>
           </div>
 
-          {/* Interest — full width */}
           <div className="md:col-span-2">
             <label htmlFor="interest" className={labelBase}>
               Tell Us About Your Interest
