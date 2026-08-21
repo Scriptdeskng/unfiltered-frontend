@@ -23,7 +23,7 @@ const specialElite = Special_Elite({
 });
 
 export const metadata: Metadata = {
-  title: "Unfiltered",
+  title: "Unfiltered | About",
   description: "",
 };
 

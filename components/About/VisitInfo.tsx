@@ -7,6 +7,7 @@ const DETAILS = [
   { label: "Accessibility", value: "Fully Accessible" },
 ];
 
+/* 
 const TICKETS = [
   {
     name: "General Admission",
@@ -59,6 +60,7 @@ function Barcode() {
     </div>
   );
 }
+*/
 
 export default function VisitInfo() {
   return (
@@ -72,76 +74,71 @@ export default function VisitInfo() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-          {/* Details */}
-          <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2">
-            {DETAILS.map((d) => (
-              <div key={d.label} className="border-b border-black/15 pb-8">
-                <p className="font-fraunces text-sm font-normal uppercase text-black md:text-base">
-                  {d.label}
+        {/* Details */}
+        <div className="mx-auto mt-12 grid max-w-[900px] grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 md:mt-16">
+          {DETAILS.map((d) => (
+            <div key={d.label} className="border-b border-black/15 pb-8">
+              <p className="font-fraunces text-sm font-normal uppercase text-black md:text-base">
+                {d.label}
+              </p>
+              <p className="mt-3 font-dm-sans text-lg font-medium text-black md:text-xl lg:text-2xl">
+                {d.value}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* ticket
+        <div className="space-y-4 md:space-y-6">
+          {TICKETS.map((t) => (
+            <div
+              key={t.name}
+              className="relative flex items-center py-6 pl-4 pr-6 sm:pl-6 md:py-9 md:pl-8 md:pr-8"
+              style={{
+                backgroundImage: CARD_BG,
+                ...(t.border && BORDER),
+                maskImage:
+                  "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
+                maskSize: "100% 22px",
+                maskRepeat: "repeat-y",
+                WebkitMaskImage:
+                  "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
+                WebkitMaskSize: "100% 22px",
+                WebkitMaskRepeat: "repeat-y",
+              }}
+            >
+              <div className="min-w-0 flex-1">
+                <p className="font-fraunces text-base font-semibold text-black sm:text-lg md:text-2xl">
+                  {t.name}
                 </p>
-                <p className="mt-3 font-dm-sans text-lg font-medium text-black md:text-xl lg:text-2xl">
-                  {d.value}
+                <p className="mt-1.5 font-dm-sans text-xs text-[#2A2A2A] sm:text-sm md:text-base">
+                  {t.note}
                 </p>
               </div>
-            ))}
-          </div>
 
-         {/* Tickets */}
-<div className="space-y-4 md:space-y-6">
-  {TICKETS.map((t) => (
-    <div
-      key={t.name}
-      className="relative flex items-center py-6 pl-4 pr-6 sm:pl-6 md:py-9 md:pl-8 md:pr-8"
-      style={{
-        backgroundImage: CARD_BG,
-        ...(t.border && BORDER),
-        maskImage:
-          "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
-        maskSize: "100% 22px",
-        maskRepeat: "repeat-y",
-        WebkitMaskImage:
-          "radial-gradient(circle 8px at right, transparent 8px, black 8.5px)",
-        WebkitMaskSize: "100% 22px",
-        WebkitMaskRepeat: "repeat-y",
-      }}
-    >
-      {/* Name + note */}
-      <div className="min-w-0 flex-1">
-        <p className="font-fraunces text-base font-semibold text-black sm:text-lg md:text-2xl">
-          {t.name}
-        </p>
-        <p className="mt-1.5 font-dm-sans text-xs text-[#2A2A2A] sm:text-sm md:text-base">
-          {t.note}
-        </p>
-      </div>
+              <p
+                className="shrink-0 px-3 font-fraunces text-base sm:text-lg md:px-6 md:text-2xl"
+                style={{ color: t.priceColor }}
+              >
+                {t.price}
+              </p>
 
-      {/* Price */}
-      <p
-        className="shrink-0 px-3 font-fraunces text-base sm:text-lg md:px-6 md:text-2xl"
-        style={{ color: t.priceColor }}
-      >
-        {t.price}
-      </p>
+              <div
+                aria-hidden="true"
+                className="h-14 w-px shrink-0 bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.35)_0_4px,transparent_4px_9px)] sm:h-16 md:h-24"
+              />
 
-      {/* Dashed perforation — inside the card */}
-      <div
-        aria-hidden="true"
-        className="h-14 w-px shrink-0 bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.35)_0_4px,transparent_4px_9px)] sm:h-16 md:h-24"
-      />
-
-      {/* Barcode */}
-      <div className="shrink-0 pl-3 md:pl-5">
-        <Barcode />
-      </div>
-    </div>
-  ))}
-</div>
+              <div className="shrink-0 pl-3 md:pl-5">
+                <Barcode />
+              </div>
+            </div>
+          ))}
         </div>
+        */}
 
         <div className="mt-14 flex justify-center">
           <Button href="/tickets" variant="black" size="md" className="w-[240px]">
-            Get Tickets
+            RSVP Now
           </Button>
         </div>
       </div>

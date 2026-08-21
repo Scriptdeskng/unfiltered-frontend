@@ -8,7 +8,7 @@ const PORTRAITS = [
 
 export default function EveryFace() {
   return (
-    <section className="bg-white">
+    <section id="every-face" className="bg-white">
       <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24 lg:px-14 lg:py-28">
         <div className="text-center">
           <h2 className="header text-balance">Every face has a story.</h2>

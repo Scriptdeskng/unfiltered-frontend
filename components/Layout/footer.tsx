@@ -8,26 +8,26 @@ const COLUMNS = [
     links: [
       { label: "The Story", href: "/stories" },
       { label: "Chapter One", href: "/#chapter-one" },
-      { label: "Behind the Lens", href: "/behind-the-lens" },
-      { label: "The Movement", href: "/movement" },
+      { label: "Behind the Lens", href: "" },
+      { label: "The Movement", href: "" },
     ],
   },
   {
     title: "Contact",
     links: [
-      { label: "Press Kit", href: "/press-kit" },
-      { label: "Media Inquiries", href: "/contact?type=media" },
-      { label: "Partnership Inquiries", href: "/contact?type=partnership" },
-      { label: "General Inquiries", href: "/contact" },
+      { label: "Press Kit", href: "" },
+      { label: "Media Inquiries", href: "" },
+      { label: "Partnership Inquiries", href: "" },
+      { label: "General Inquiries", href: "" },
     ],
   },
   {
     title: "Socials",
     links: [
-      { label: "Instagram", href: "https://instagram.com", external: true },
-      { label: "TikTok", href: "https://tiktok.com", external: true },
-      { label: "Youtube", href: "https://youtube.com", external: true },
-      { label: "X (Twitter)", href: "https://x.com", external: true },
+      { label: "Instagram", href: "", external: true },
+      { label: "TikTok", href: "", external: true },
+      { label: "Youtube", href: "", external: true },
+      { label: "X (Twitter)", href: "", external: true },
     ],
   },
 ];
@@ -83,10 +83,10 @@ export default function Footer() {
             © {new Date().getFullYear()} UNFILTERED · Lumigrapher
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="footer-gridtext transition-colors hover:text-white">
+            <Link href="" className="footer-gridtext transition-colors hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="footer-gridtext transition-colors hover:text-white">
+            <Link href="" className="footer-gridtext transition-colors hover:text-white">
               Terms of Service
             </Link>
           </div>

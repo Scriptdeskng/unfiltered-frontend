@@ -54,7 +54,7 @@ function HeroContent() {
         size="lg"
         className="mt-2 w-[200px] md:mt-8 md:w-[240px]"
       >
-        Get Tickets
+        RSVP Now
       </Button>
     </>
   );
