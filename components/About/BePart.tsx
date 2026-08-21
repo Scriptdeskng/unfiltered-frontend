@@ -55,7 +55,7 @@ function Content() {
           size="sm"
           className="w-full max-w-[240px] sm:w-[160px]"
         >
-          Get Ticket
+          RSVP Now
         </Button>
         <Button
           href="/partners-form"
