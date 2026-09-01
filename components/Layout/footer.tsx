@@ -6,28 +6,26 @@ const COLUMNS = [
   {
     title: "About",
     links: [
-      { label: "The Story", href: "/stories" },
+      { label: "The Story", href: "/#hero" },
       { label: "Chapter One", href: "/#chapter-one" },
-      { label: "Behind the Lens", href: "" },
-      { label: "The Movement", href: "" },
+      { label: "Behind the Lens", href: "/#behind-stories" },
+      { label: "The Movement", href: "/#visit-info" },
     ],
   },
   {
     title: "Contact",
     links: [
-      { label: "Press Kit", href: "" },
-      { label: "Media Inquiries", href: "" },
-      { label: "Partnership Inquiries", href: "" },
-      { label: "General Inquiries", href: "" },
+      { label: "Press Kit", href: "mailto:hello@weareunfiltered.org" },
+      { label: "Media Inquiries", href: "mailto:hello@weareunfiltered.org" },
+      { label: "Partnership Inquiries", href: "mailto:hello@weareunfiltered.org" },
+      { label: "General Inquiries", href: "mailto:hello@weareunfiltered.org" },
     ],
   },
   {
     title: "Socials",
     links: [
-      { label: "Instagram", href: "", external: true },
+      { label: "Instagram", href: "https://www.instagram.com/theunfiltered.project?igsi=ZTUyNWh5ZnVsdnFi", external: true },
       { label: "TikTok", href: "", external: true },
-      { label: "Youtube", href: "", external: true },
-      { label: "X (Twitter)", href: "", external: true },
     ],
   },
 ];

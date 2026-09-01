@@ -18,7 +18,6 @@ export default function BePart() {
         </div>
       </div>
 
-      {/* Tablet & up — natural image height, content overlaid */}
       <div className="relative hidden w-full overflow-hidden rounded-[34px] sm:block md:rounded-[50px]">
         <Image
           src="/assets/Bepart .PNG"

@@ -19,7 +19,7 @@ const MEDIA = [
 
 function LogoRow({ title, logos }: { title: string; logos: typeof SUPPORTING }) {
   return (
-    <div className="w-full">
+    <div id="movement" className="w-full">
       <p className="sub-textblack">{title}</p>
       <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-8 md:gap-x-14">
         {logos.map((logo) => (

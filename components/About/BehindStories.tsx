@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BehindStories() {
   return (
-    <section className="bg-background">
+    <section id="behind-stories" className="bg-background">
       <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-2 lg:gap-16 lg:px-14 lg:py-28">
         <div className="relative aspect-[4/5] w-full overflow-hidden">
           <Image
@@ -25,7 +25,7 @@ export default function BehindStories() {
           </p>
 
           <Link
-            href="/lumigrapher"
+            href="https://www.instagram.com/lumig.rapher?igsi=MWNwMWdzc2Zsb3Nobw=="
             className="mt-8 inline-flex items-center gap-2 border-b border-black pb-1 font-fraunces text-base text-black transition-opacity hover:opacity-70 md:text-lg"
           >
             Meet Lumigrapher <span aria-hidden="true">→</span>

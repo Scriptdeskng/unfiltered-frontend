@@ -39,6 +39,7 @@ export default function Hero() {
 function HeroContent() {
   return (
     <>
+    <section id="hero">
       <h1 className="hero-text max-w-[23.2ch] text-center tracking-normal lg:pt-25">
         Beyond the Skin: A Photography &amp; Storytelling Experience
       </h1>
@@ -56,6 +57,7 @@ function HeroContent() {
       >
         RSVP Now
       </Button>
+      </section>
     </>
   );
 }
