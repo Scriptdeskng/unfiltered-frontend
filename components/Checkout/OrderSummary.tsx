@@ -4,7 +4,7 @@ import { useCart } from "../Common/CartContext";
 import { formatPrice } from "@/lib/format";
 
 export default function OrderSummary() {
-  const { lines, removeLine, subtotal, shipping, tax, total } = useCart();
+  const { lines, removeLine, subtotal, shipping, shippingKnown, tax, total } = useCart();
 
   return (
     <div className="rounded-lg border border-[#616161]/38 p-6">
@@ -46,14 +46,16 @@ export default function OrderSummary() {
         </div>
         <div className="flex justify-between">
           <dt className="sort-by">Shipping</dt>
-          <dd className="sub-textblack !text-sm">{shipping === 0 ? "Free" : formatPrice(shipping)}</dd>
+          <dd className="sub-textblack !text-sm">
+            {!shippingKnown ? "—" : shipping === 0 ? "Free" : formatPrice(shipping)}
+          </dd>
         </div>
         <div className="flex justify-between">
           <dt className="sort-by">Tax</dt>
           <dd className="sub-textblack !text-sm">{formatPrice(tax)}</dd>
         </div>
         <div className="flex justify-between border-t border-black/10 pt-4">
-          <dt className="shop-name !leading-[175%]">Total</dt>
+          <dt className="shop-name !leading-[175%]">{shippingKnown ? "Total" : "Estimated total"}</dt>
           <dd className="shop-name !leading-[100%]">{formatPrice(total)}</dd>
         </div>
       </dl>

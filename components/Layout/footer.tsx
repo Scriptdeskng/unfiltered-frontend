@@ -25,7 +25,7 @@ const COLUMNS = [
     title: "Socials",
     links: [
       { label: "Instagram", href: "https://www.instagram.com/theunfiltered.project?igsi=ZTUyNWh5ZnVsdnFi", external: true },
-      { label: "TikTok", href: "", external: true },
+      { label: "TikTok", href: "https://www.tiktok.com/@unfiltered.project?_r=1&_t=ZS-9APEwSjtYQc", external: true },
     ],
   },
 ];

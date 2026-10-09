@@ -7,10 +7,13 @@ import { formatPrice } from "@/lib/format";
 import CartItem from "./CartItem";
 
 export default function CartModal() {
-  const { isCartOpen, closeCart, lines, subtotal, tax, total } = useCart();
+  const { isCartOpen, closeCart, lines, subtotal, tax } = useCart();
   const router = useRouter();
 
   if (!isCartOpen) return null;
+
+  // Shipping depends on the customer's address, which is only entered at checkout, so the cart total here deliberately leaves it out.
+  const estimatedTotal = subtotal + tax;
 
   function handleCheckout() {
     closeCart();
@@ -73,34 +76,33 @@ export default function CartModal() {
                   </div>
                   <div className="flex justify-between">
                     <dt className="sort-by">Shipping</dt>
-                    <dd className="sidebar-black font-medium !text-[#3D8F2D]">FREE</dd>
+                    <dd className="sort-by">Calculated at checkout</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="sort-by">Tax</dt>
                     <dd className="sidebar-black">{formatPrice(tax)}</dd>
                   </div>
                   <div className="flex justify-between border-t border-[#E9E9EB] pt-3">
-                    <dt className="detail-boldtext !text-base">Total</dt>
-                    <dd className="detail-boldtext !text-base">{formatPrice(total)}</dd>
+                    <dt className="detail-boldtext !text-base">Estimated total</dt>
+                    <dd className="detail-boldtext !text-base">{formatPrice(estimatedTotal)}</dd>
                   </div>
-                  <button
-                type="button"
-                onClick={handleCheckout}
-                className="mt-6 w-full rounded-md bg-[#0E1422] px-6 py-3.5 font-dm-sans text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Proceed to Checkout
-              </button>
-              <button
-                type="button"
-                onClick={closeCart}
-                className="sort-text mt-3 block w-full text-center !text-[#0E1422] underline underline-offset-2"
-              >
-                Continue Shopping
-              </button>
                 </dl>
-              </div>
 
-              
+                <button
+                  type="button"
+                  onClick={handleCheckout}
+                  className="mt-6 w-full rounded-md bg-[#0E1422] px-6 py-3.5 font-dm-sans text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  Proceed to Checkout
+                </button>
+                <button
+                  type="button"
+                  onClick={closeCart}
+                  className="sort-text mt-3 block w-full text-center !text-[#0E1422] underline underline-offset-2"
+                >
+                  Continue Shopping
+                </button>
+              </div>
             </div>
           </div>
         )}

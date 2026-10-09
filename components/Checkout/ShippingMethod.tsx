@@ -53,7 +53,7 @@ export default function ShippingMethod({
                   )}
                 </span>
               </span>
-              <span className="sort-text !text-[#000000]">{formatPrice(method.price)}</span>
+              <span className="sort-text !text-[#000000]">{method.price === 0 ? "Free" : formatPrice(method.price)}</span>
             </label>
           ))}
       </div>

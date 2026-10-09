@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-     images: { remotePatterns: [{ protocol: "https", hostname: "api.kalonnbloom.com" }] }
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "api.kalonnbloom.com" },
+      { protocol: "https", hostname: "eton-house.nyc3.digitaloceanspaces.com" },
+    ],
+  },
 };
 
 export default nextConfig;
-

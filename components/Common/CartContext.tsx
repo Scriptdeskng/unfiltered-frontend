@@ -22,14 +22,15 @@ type CartContextValue = {
   clearCart: () => void;
   subtotal: number;
   shipping: number;
-  setShipping: (amount: number) => void;
+  setShipping: (amount: number | null) => void; // null = not calculated yet
+  shippingKnown: boolean;
   tax: number;
   total: number;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-const TAX_RATE = 0.075; 
+const TAX_RATE = 0.075; // 7.5%, same as the other storefront
 const STORAGE_KEY = "kb_cart";
 
 function sameLine(a: { productId: string; size: string; color: ProductColor }, b: typeof a) {
@@ -39,31 +40,27 @@ function sameLine(a: { productId: string; size: string; color: ProductColor }, b
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [isCartOpen, setCartOpen] = useState(false);
-  const [shipping, setShipping] = useState(0);
+  const [shippingAmount, setShippingAmount] = useState<number | null>(null);
+  const shipping = shippingAmount ?? 0;
   const [hydrated, setHydrated] = useState(false);
 
-  // Load the saved cart once, after mount (avoids server/client hydration mismatch).
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        // Ignore carts saved before variantId existed — they can't be ordered.
         if (Array.isArray(saved)) setLines(saved.filter((l) => typeof l.variantId === "number"));
       }
     } catch {
-      /* corrupted or unavailable storage — start with an empty cart */
     }
     setHydrated(true);
   }, []);
 
-  // Save on every change (but only after the initial load, so we don't overwrite it with []).
   useEffect(() => {
     if (!hydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
     } catch {
-      /* storage full or blocked — cart still works for this session */
     }
   }, [lines, hydrated]);
 
@@ -100,7 +97,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(() => {
     setLines([]);
-    setShipping(0);
+    setShippingAmount(null);
   }, []);
 
   const subtotal = useMemo(
@@ -121,7 +118,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     clearCart,
     subtotal,
     shipping,
-    setShipping,
+    setShipping: setShippingAmount,
+    shippingKnown: shippingAmount !== null,
     tax,
     total,
   };

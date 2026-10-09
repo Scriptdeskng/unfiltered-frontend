@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import LayoutWrap from "@/components/Layout/LayoutWrap";
-import CheckoutForm from "@/components/Checkout/CheckoutForm";
+import CheckoutForm, { type FieldErrors } from "@/components/Checkout/CheckoutForm";
 import ShippingMethod from "@/components/Checkout/ShippingMethod";
 import PaymentMethod from "@/components/Checkout/PaymentMethod";
 import OrderSummary from "@/components/Checkout/OrderSummary";
@@ -43,6 +43,21 @@ const REQUIRED: (keyof ShippingInfo)[] = [
   "country",
 ];
 
+
+const QUOTE_FIELDS = REQUIRED.filter((k) => k !== "zip");
+
+const FIELD_LABELS: Record<keyof ShippingInfo, string> = {
+  firstName: "first name",
+  lastName: "last name",
+  email: "email address",
+  phone: "phone number",
+  street: "street address",
+  city: "city",
+  state: "state",
+  zip: "zip code",
+  country: "country",
+};
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export default function CheckoutPage() {
@@ -63,9 +78,13 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [awaitingPayment, setAwaitingPayment] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [attempted, setAttempted] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [confirmedLines, setConfirmedLines] = useState<CartLine[] | null>(null);
 
-  const addressComplete = REQUIRED.every((k) => info[k].trim());
+  const addressComplete = QUOTE_FIELDS.every((k) => info[k].trim());
   const itemsKey = lines.map((l) => `${l.variantId}:${l.quantity}`).join(",");
   const selectedRate = rates.find((r) => r.courier_id === selectedRateId) ?? null;
 
@@ -80,13 +99,12 @@ export default function CheckoutPage() {
     [rates]
   );
 
-  // Fetch rates (debounced) whenever the address or cart changes.
   useEffect(() => {
     if (!addressComplete || lines.length === 0) {
       rateRequestRef.current += 1;
       setRates([]);
       setSelectedRateId(null);
-      setShipping(0);
+      setShipping(null);
       setShippingError(null);
       setShippingLoading(false);
       return;
@@ -101,13 +119,13 @@ export default function CheckoutPage() {
         const result = await getShippingRates(info, lines);
         if (rateRequestRef.current !== requestId) return;
         setRates(result);
-        setSelectedRateId(result[0].courier_id); // cheapest first
+        setSelectedRateId(result[0].courier_id); 
         setShipping(result[0].rate);
       } catch (e) {
         if (rateRequestRef.current !== requestId) return;
         setRates([]);
         setSelectedRateId(null);
-        setShipping(0);
+        setShipping(null);
         setShippingError(e instanceof Error ? e.message : "Could not calculate shipping.");
       } finally {
         if (rateRequestRef.current === requestId) setShippingLoading(false);
@@ -118,7 +136,6 @@ export default function CheckoutPage() {
       clearTimeout(timer);
       rateRequestRef.current += 1;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     addressComplete,
     itemsKey,
@@ -133,24 +150,36 @@ export default function CheckoutPage() {
     info.country,
   ]);
 
+  function flash(message: string) {
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    setNotice(message);
+    noticeTimer.current = setTimeout(() => setNotice(null), 2500);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    };
+  }, []);
+
   function handleFieldChange(name: keyof ShippingInfo, value: string) {
     setInfo((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
   }
 
   function handleShippingChange(id: string) {
     setSelectedRateId(id);
     const rate = rates.find((r) => r.courier_id === id);
-    setShipping(rate?.rate ?? 0);
+    setShipping(rate ? rate.rate : null);
   }
 
   function finishSuccess() {
-    setConfirmedLines(lines); // keep a copy for the modal
+    setConfirmedLines(lines); 
     clearCart();
     setAwaitingPayment(false);
     setSubmitting(false);
   }
 
-  // The popup can return before the backend has marked the payment as paid, so check a few times.
   async function confirmPayment(reference: string) {
     for (let attempt = 0; attempt < 5; attempt++) {
       const result = await verifyPayment(reference);
@@ -163,12 +192,38 @@ export default function CheckoutPage() {
   async function handleCheckout() {
     setError(null);
 
-    if (!REQUIRED.every((k) => info[k].trim())) {
-      setError("Please fill in all required fields.");
+    setAttempted(true);
+
+    if (lines.length === 0) {
+      setError("Your cart is empty.");
+      flash("Your cart is empty");
       return;
     }
+
+    const errors: FieldErrors = {};
+    for (const key of REQUIRED) {
+      if (!info[key].trim()) errors[key] = `Please enter your ${FIELD_LABELS[key]}`;
+    }
+    if (info.email.trim() && !/^\S+@\S+\.\S+$/.test(info.email.trim())) {
+      errors.email = "Please enter a valid email address";
+    }
+    setFieldErrors(errors);
+
+    const firstBad = REQUIRED.find((k) => errors[k]) ;
+    if (firstBad) {
+      flash(errors[firstBad] ?? "Please check your details");
+      document.querySelector<HTMLInputElement>(`input[name="${firstBad}"]`)?.focus();
+      return;
+    }
+
     if (!selectedRate) {
-      setError("Please wait for shipping to be calculated.");
+      flash(
+        shippingLoading
+          ? "Calculating shipping…"
+          : shippingError
+            ? "Shipping unavailable"
+            : "Complete your address"
+      );
       return;
     }
 
@@ -196,6 +251,7 @@ export default function CheckoutPage() {
               finishSuccess();
             } else {
               setAwaitingPayment(false);
+              flash("Payment not confirmed");
               setError(
                 "We haven't received confirmation of your payment yet. If you were charged, please contact support with your order number."
               );
@@ -203,21 +259,25 @@ export default function CheckoutPage() {
           } catch {
             setAwaitingPayment(false);
             setError("Could not verify payment status. Please contact support.");
+            flash("Couldn't verify payment");
           }
         },
         onCancel: () => {
           setAwaitingPayment(false);
           setSubmitting(false);
           setError("Payment was cancelled. You can try again.");
+          flash("Payment cancelled");
         },
         onError: (e) => {
           setAwaitingPayment(false);
           setSubmitting(false);
           setError(e.message || "Unable to open the payment window.");
+          flash("Payment failed");
         },
       });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      flash("Something went wrong");
       setAwaitingPayment(false);
       setSubmitting(false);
     }
@@ -243,13 +303,19 @@ export default function CheckoutPage() {
                 onChange={handleFieldChange}
                 createAccount={createAccount}
                 onCreateAccountChange={setCreateAccount}
+                errors={fieldErrors}
               />
               <ShippingMethod
                 methods={shippingMethods}
                 selected={selectedRateId}
                 onChange={handleShippingChange}
                 loading={shippingLoading}
-                error={shippingError}
+                error={
+                  shippingError ??
+                  (attempted && !shippingLoading && !selectedRate
+                    ? "Complete your address above to see shipping options."
+                    : null)
+                }
               />
               <PaymentMethod selected={paymentId} onChange={setPaymentId} />
 
@@ -262,18 +328,12 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={handleCheckout}
-                disabled={lines.length === 0 || busy || shippingLoading || !selectedRate}
-                className="w-full rounded-md bg-[#000000] px-6 py-3.5 font-dm-sans text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={busy}
+                className={`w-full rounded-md px-6 py-3.5 font-dm-sans text-sm font-medium text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+                  notice && !busy ? "bg-[#000000]" : "bg-[#000000]"
+                }`}
               >
-                {awaitingPayment
-                  ? "Waiting for payment…"
-                  : submitting
-                    ? "Processing…"
-                    : shippingLoading
-                      ? "Calculating shipping…"
-                      : !selectedRate
-                        ? "Complete address to continue"
-                        : "Checkout"}
+                {busy ? "Processing…" : (notice ?? "Checkout")}
               </button>
             </div>
           </div>
