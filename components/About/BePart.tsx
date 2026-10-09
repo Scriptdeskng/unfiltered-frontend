@@ -49,7 +49,7 @@ function Content() {
 
       <div className="mt-6 flex w-full flex-col items-center gap-3 sm:mt-6 sm:w-auto sm:flex-row md:mt-8 md:gap-4">
         <Button
-          href="/tickets"
+          href="https://tix.africa/discover/weareunfiltered"
           variant="outline"
           size="sm"
           className="w-full max-w-[240px] sm:w-[160px]"

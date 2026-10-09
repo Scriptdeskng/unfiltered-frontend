@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Fraunces, Special_Elite } from "next/font/google";
+import { CartProvider } from "@/components/Common/CartContext";
+import CartModal from "@/components/Cart/CartModal"; 
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -22,10 +24,18 @@ const specialElite = Special_Elite({
   display: "swap",
 });
 
+const cabinetGrotesk = {
+  variable: "--font-cabinet-grotesk",
+  subsets: ["latin"],
+  display: "swap",
+};
+
 export const metadata: Metadata = {
   title: "Unfiltered | About",
   description: "",
 };
+
+
 
 export default function RootLayout({
   children,
@@ -35,9 +45,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${fraunces.variable} ${specialElite.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${fraunces.variable} ${specialElite.variable} ${cabinetGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <CartProvider>
+          {children}
+          <CartModal />
+        </CartProvider>
+      </body>
     </html>
   );
 }

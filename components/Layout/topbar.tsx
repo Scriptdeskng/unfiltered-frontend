@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 const NAV_LINKS = [
   { label: "About", href: "/#hero" },
   { label: "Stories", href: "/#every-face" },
-  { label: "Partners", href: "/#partners" },
+  { label: "Shop", href: "/shop"}
 ];
 
 type TopbarProps = { variant?: "light" | "dark" };
@@ -18,8 +18,8 @@ export default function Topbar({ variant = "light" }: TopbarProps) {
   const isDark = variant === "dark";
 
   const linkColor = isDark
-    ? "text-black hover:text-black focus:text-black"
-    : "text-white hover:text-white focus:text-white";
+    ? "text-black hover:text-black/50 focus:text-black"
+    : "text-white hover:text-white/50 focus:text-white";
   const barColor = isDark ? "bg-black" : "bg-white";
   const btnVariant = isDark ? "outlineDark" : "outline";
 

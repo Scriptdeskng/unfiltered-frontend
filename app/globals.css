@@ -20,6 +20,7 @@
   --font-dm-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-fraunces: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-special-elite: var(--font-special-elite), ui-monospace, monospace;
+  --font-cabinet-grotesk: var(--font-cabinet-grotesk), ui-sans-serif, system-ui, sans-serif;
 }
 
 
@@ -38,6 +39,46 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Add this block to globals.css, outside @layer utilities.
+   Makes native <input type="range"> invisible except for a plain black thumb —
+   the track/fill/tooltip are drawn separately in PriceRangeSlider.tsx. */
+
+input[type="range"].range-thumb-only {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+input[type="range"].range-thumb-only::-webkit-slider-runnable-track {
+  background: transparent;
+}
+input[type="range"].range-thumb-only::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 9999px;
+  background: #0e1422;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="range"].range-thumb-only::-moz-range-track {
+  background: transparent;
+}
+input[type="range"].range-thumb-only::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 9999px;
+  background: #0e1422;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="range"].range-thumb-only:focus {
+  outline: none;
 }
 
 @layer utilities {
@@ -76,8 +117,47 @@ html {
   .header {
     @apply text-black text-xl md:text-3xl lg:text-4xl font-semibold font-fraunces;
   }
+  .sub-header {
+    @apply text-[#000000] text-base md:text-xl  font-normal font-dm-sans;
+  }
   .input-text {
     @apply text-[#474B57] text-base md:text-xl font-normal font-special-elite;
+  }
+  .box-text {
+    @apply text-[#333843] text-xs font-normal font-dm-sans;
+  }
+  .dropdown-text {
+    @apply text-[#333843] text-sm font-normal font-dm-sans;
+  }
+  .sort-text {
+    @apply text-[#5C5F6A] text-xs font-normal font-dm-sans;
+  }
+  .sort-by {
+    @apply text-[#5C5F6A] text-sm font-normal font-dm-sans;
+  }
+  .sort-available {
+    @apply text-[#5C5F6A] text-sm md:text-base font-normal font-dm-sans;
+  }
+  .sidebar-black {
+    @apply text-[#0E1422] text-sm md:text-base font-normal font-dm-sans leading-[175%];
+  }
+  .shop-name {
+    @apply text-[#0E1422] text-sm  font-normal font-cabinet-grotesk leading-[175%];
+  }
+  .shop-price {
+    @apply text-[#474B57] text-sm  font-bold font-cabinet-grotesk leading-[175%];
+  }
+  .checkout-input {
+    @apply text-[#474B57] text-sm  font-normal font-dm-sans leading-[175%];
+  }
+  .shipping-method-text {
+    @apply text-[#000000] text-sm  font-medium font-dm-sans leading-[100%];
+  }
+  .confirmed-description {
+    @apply text-[#5C5F6A] text-base md:text-lg font-normal font-dm-sans;
+  }
+  .detail-boldtext {
+    @apply text-[#0E1422] text-lg md:text-2xl font-medium font-dm-sans;
   }
   .footer-gridtext {
     @apply text-white/50 text-sm md:text-base font-light font-dm-sans;

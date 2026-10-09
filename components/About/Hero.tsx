@@ -50,7 +50,7 @@ function HeroContent() {
       </p>
 
       <Button
-        href="/tickets"
+        href="https://tix.africa/discover/weareunfiltered"
         variant="white"
         size="lg"
         className="mt-2 w-[200px] md:mt-8 md:w-[240px]"

@@ -7,6 +7,8 @@ type Tab = { label: string; value: string };
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
+  /** When true, subtitle is hidden below md and only shows from md up. Defaults to false so existing pages keep showing it on mobile. */
+  hideSubtitleOnMobile?: boolean;
   tabs?: Tab[];
   activeTab?: string;
   onTabChange?: (value: string) => void;
@@ -15,6 +17,7 @@ type PageHeaderProps = {
 export default function PageHeader({
   title,
   subtitle,
+  hideSubtitleOnMobile = false,
   tabs,
   activeTab,
   onTabChange,
@@ -28,11 +31,17 @@ export default function PageHeader({
   };
 
   return (
-    <div className="mx-auto max-w-[1440px] px-6 pt-32 md:px-8 md:pt-36 lg:px-10 lg:pt-40">
+    <div className="mx-auto max-w-[1440px] px-6 pt-10 md:px-10 md:pt-22 lg:pt-32 lg:px-10 lg:pt-40">
       <h1 className="header text-balance">{title}</h1>
 
       {subtitle && (
-        <p className="sub-textblack mt-4 max-w-[58ch] text-pretty">{subtitle}</p>
+        <p
+          className={`sub-textblack mt-4 max-w-[58ch] text-pretty ${
+            hideSubtitleOnMobile ? "hidden md:block" : ""
+          }`}
+        >
+          {subtitle}
+        </p>
       )}
 
       {tabs && tabs.length > 0 && (

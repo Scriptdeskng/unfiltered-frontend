@@ -137,7 +137,7 @@ export default function VisitInfo() {
         */}
 
         <div className="mt-14 flex justify-center">
-          <Button href="/tickets" variant="black" size="md" className="w-[240px]">
+          <Button href="https://tix.africa/discover/weareunfiltered" variant="black" size="md" className="w-[240px]">
             RSVP Now
           </Button>
         </div>
