@@ -7,7 +7,6 @@ type Tab = { label: string; value: string };
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
-  /** When true, subtitle is hidden below md and only shows from md up. Defaults to false so existing pages keep showing it on mobile. */
   hideSubtitleOnMobile?: boolean;
   tabs?: Tab[];
   activeTab?: string;
