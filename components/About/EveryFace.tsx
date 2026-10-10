@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/Button";
+
 
 const PORTRAITS = [
   { src: "/assets/spotted-heard.svg", alt: "Portrait against a pale grey backdrop" },
@@ -16,7 +18,15 @@ export default function EveryFace() {
             Stories of people learning to see themselves beyond the way the world
             sees them.
           </p>
+
+          <div className="mt-14 flex justify-center">
+                    <Button 
+                    href="https://theunfiltered.netlify.app/" variant="black" size="md" className="w-[240px]">
+                      Stories
+                    </Button>
         </div>
+        </div>
+       
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-14 md:gap-6 lg:grid-cols-3">
           {PORTRAITS.map((p) => (

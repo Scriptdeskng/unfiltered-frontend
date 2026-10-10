@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 const NAV_LINKS = [
   { label: "About", href: "/#hero" },
-  { label: "Stories", href: "/#every-face" },
+  { label: "Stories", href: "https://theunfiltered.netlify.app/" },
   { label: "Shop", href: "/shop"}
 ];
 
